@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/register', (req, res) => {
     let user = req.body;
 
-    const hash = bcrypt.hashSync(user.password, 14);
+    const hash = bcrypt.hashSync(user.password, 4);
     user.password = hash;
 
     userDb.add(user) 
@@ -21,8 +21,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    let user = req.body;
-    let username = user.username
+    let {username, password} = req.body;
 
     userDb.findBy({username})
         .first()

@@ -17,6 +17,16 @@ router.post('/', middleware.restricted,
                 .catch(error => {
                     res.status(500).json(error)
                 })
+});
+
+router.delete('/:id', middleware.restricted, (req, res) => {
+    carDb.deleteCar(req.params.id)
+        .then(results => {
+            res.status(201).json(results)
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
 })
 
 module.exports = router;
