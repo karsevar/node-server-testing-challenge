@@ -43,3 +43,15 @@ describe('authRoute.js', () => {
     //     })
     // })
 })
+
+// describe("post new", () => {
+//     afterAll(async () => {
+//                 await db('users').truncate();
+//             });
+
+//     it('should return status 200 ok if given validate user credentials', async () => {
+//         const response = await request(server).post('/auth/register').send({username: 'alice', password: 'alice'})
+//         const response2 = await request(server).post('/auth/login').send({username: 'alice', password: 'alice'})
+//         expect(response2.status).toBe(200)
+//     })
+// })

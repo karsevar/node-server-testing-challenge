@@ -1,16 +1,24 @@
-const carDb = require('./carModel.js')
+const carDb = require('./carModel.js');
+const jwt = require('jsonwebtoken')
 
 function restricted(req, res, next) {
-    if (req.session && req.session.user) {
-        console.log('from the restricted middleware', req.session.user)
-        next();
+    const token = req.headers.authorization;
+
+    if (token) {
+        jwt.verify(token, process.env.JSON_SECRET, (err, decodedToken) => {
+            if(err) {
+                res.status(401).json({message: 'You shall not pass'})
+            } else {
+                req.user = {username: decodedToken.username, id: decodedToken.subject}
+            }
+        })
     } else {
         res.status(401).json({message: 'invalid credentials'})
     }
 }
 
 function attachUserId (req, res, next) {
-    req.body.user_id = req.session.user.id
+    req.body.user_id = req.user.id
     next();
 }
 
