@@ -20,4 +20,26 @@ router.post('/register', (req, res) => {
         })
 });
 
+router.post('/login', (req, res) => {
+    let user = req.body;
+    let username = user.username
+
+    userDb.findBy({username})
+        .first()
+        .then(user => {
+            if(user && bcrypt.compareSync(password, user.password)) {
+                const token = userDb.generateToken(user);
+                res.status(200).json({
+                    message: `${user.username} has successfully logged in`,
+                    token
+                })
+            } else {
+                res.status(401).json({message: 'You shall not pass!'})
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
+
 module.exports = router;

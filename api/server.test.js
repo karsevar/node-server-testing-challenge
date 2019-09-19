@@ -20,6 +20,7 @@ describe('authRoute.js', () => {
         await db('users').truncate();
     });
 
+
     describe('POST /auth/register', () => {
         it('should return id number of newly created user', async () => {
             const response = await request(server).post('/auth/register').send({username: 'mason', password: 'mason'})
