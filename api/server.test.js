@@ -36,10 +36,10 @@ describe('authRoute.js', () => {
         })
     })
 
-    describe('POST /auth/login', () => {
-        it('should return status 200 ok if given validate user credentials', async () => {
-            const response = await request(server).post('/auth/login').send({username: 'alice', password: 'alice'})
-            expect(response.status).toBe(200)
-        })
-    })
+    // describe('POST /auth/login', () => {
+    //     it('should return status 200 ok if given validate user credentials', async () => {
+    //         const response = await request(server).post('/auth/login').send({username: 'alice', password: 'alice'})
+    //         expect(response.status).toBe(200)
+    //     })
+    // })
 })
