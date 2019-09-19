@@ -14,11 +14,11 @@ describe('server.js root route', () => {
     })
 })
 
-describe('authRoute.js', () => {
-    describe('POST /auth/register', () => {
-        it('should return id number of newly created user', async () => {
-            const response = await request(server).post({username: 'mason', password:'mason'})
-            expect(response.body).toEqual({id: 1})
-        })
-    })
-})
+// describe('authRoute.js', () => {
+//     describe('POST /auth/register', () => {
+//         it('should return id number of newly created user', async () => {
+//             const response = await request(server).post({username: 'mason', password:'mason'})
+//             expect(response.body).toEqual({id: 1})
+//         })
+//     })
+// })
