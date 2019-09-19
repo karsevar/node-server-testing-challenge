@@ -5,8 +5,7 @@ const middleware = require('./carMiddleware.js')
 
 const router = express.Router();
 
-router.post('/', middleware.restricted, 
-            middleware.attachUserId, 
+router.post('/', 
             middleware.attachMake, 
             middleware.attachModel, 
             (req, res) => {
@@ -19,7 +18,7 @@ router.post('/', middleware.restricted,
                 })
 });
 
-router.delete('/:id', middleware.restricted, (req, res) => {
+router.delete('/:id', (req, res) => {
     carDb.deleteCar(req.params.id)
         .then(results => {
             res.status(201).json(results)

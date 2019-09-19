@@ -17,7 +17,9 @@ describe('server.js root route', () => {
 
 describe('authRoute.js', () => {
     afterAll(async () => {
+        await db('cars').truncate();
         await db('users').truncate();
+
     });
 
 
@@ -42,7 +44,45 @@ describe('authRoute.js', () => {
     //         expect(response.status).toBe(200)
     //     })
     // })
+    describe('carsRoute.js', () => {
+        describe('POST /cars', () => {
+            it('should display status code 200 ok', async () => {
+                const response = await request(server).post('/cars').send({
+                    "user_id": 1,
+                    "make_id": "Ford",
+                    "model_id": "Fleetwood",
+                    "vin": "1297449jdad",
+                    "status": "salvage",
+                    "mileage": 120000
+                })
+                expect(response.status).toBe(200);
+            })
+            it('should return the id of the newly inserted record', async () => {
+                const response = await request(server).post('/cars').send({
+                    "user_id": 2,
+                    "make_id": "Ford",
+                    "model_id": "Fleetwood",
+                    "vin": "1297449jdadd",
+                    "status": "salvage",
+                    "mileage": 120000
+                })
+                expect(response.body[0]).toBe(2);
+            })
+        })
+
+        describe('DELETE /cars/:id', () => {
+            it('should display 1 if a record was deleted', async () => {
+                const response = await request(server).delete('/cars/2')
+                expect(response.body).toEqual(1)
+            })
+            it('should display 0 if a record has not been deleted', async () => {
+                const response = await request(server).delete('/cars/2')
+                expect(response.body).toEqual(0)
+            })
+        })
+    })
 })
+
 
 // describe("post new", () => {
 //     afterAll(async () => {

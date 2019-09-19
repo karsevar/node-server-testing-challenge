@@ -10,6 +10,7 @@ function restricted(req, res, next) {
                 res.status(401).json({message: 'You shall not pass'})
             } else {
                 req.user = {username: decodedToken.username, id: decodedToken.subject}
+                next();
             }
         })
     } else {
